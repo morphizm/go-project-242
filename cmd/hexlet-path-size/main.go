@@ -44,7 +44,7 @@ func main() {
 		},
 		Action: func(ctx context.Context, c *cli.Command) error {
 			file_path := c.Args().Get(0)
-			size, err := code.GetSize(file_path, cfg.hidden, cfg.recursive)
+			size, err := code.GetPathSize(file_path, cfg.hidden, cfg.recursive)
 			if err != nil {
 				return err
 			}
