@@ -6,3 +6,10 @@ lint-fix:
 
 lint:
 	golangci-lint run
+
+test:
+	go test ./tests -v
+
+check: lint test
+
+.PHONY: test

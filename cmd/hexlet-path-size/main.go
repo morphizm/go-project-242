@@ -1,19 +1,17 @@
-// package hexletpathsize
 package main
 
 import (
 	path_size "code"
 	"context"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/urfave/cli/v3"
 )
 
 func main() {
-	// fmt.Println(("hello"))
-
-	(&cli.Command{
+	cmd := &cli.Command{
 		Name:  "hexlet-path-size",
 		Usage: "print size of a file or directory",
 		Action: func(ctx context.Context, c *cli.Command) error {
@@ -28,5 +26,9 @@ func main() {
 
 			return nil
 		},
-	}).Run(context.Background(), os.Args)
+	}
+
+	if err := cmd.Run(context.Background(), os.Args); err != nil {
+		log.Fatal(err)
+	}
 }
