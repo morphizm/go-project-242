@@ -10,41 +10,30 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-type Config struct {
-	human     bool
-	hidden    bool
-	recursive bool
-}
-
 func main() {
-	cfg := Config{human: false, hidden: false, recursive: false}
-
 	cmd := &cli.Command{
 		Name:  "hexlet-path-size",
 		Usage: "print size of a file or directory",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
-				Name:        "human",
-				Aliases:     []string{"H"},
-				Usage:       "human-readable sizes (auto-select unit)",
-				Destination: &cfg.human,
+				Name:    "human",
+				Aliases: []string{"H"},
+				Usage:   "human-readable sizes (auto-select unit)",
 			},
 			&cli.BoolFlag{
-				Name:        "all",
-				Aliases:     []string{"a"},
-				Usage:       "include hidden files and directories",
-				Destination: &cfg.hidden,
+				Name:    "all",
+				Aliases: []string{"a"},
+				Usage:   "include hidden files and directories",
 			},
 			&cli.BoolFlag{
-				Name:        "resursive",
-				Aliases:     []string{"r"},
-				Usage:       "recursive size of directories",
-				Destination: &cfg.recursive,
+				Name:    "recursive",
+				Aliases: []string{"r"},
+				Usage:   "recursive size of directories",
 			},
 		},
 		Action: func(ctx context.Context, c *cli.Command) error {
 			file_path := c.Args().Get(0)
-			size, err := code.GetPathSize(file_path, cfg.recursive, cfg.human, cfg.hidden)
+			size, err := code.GetPathSize(file_path, c.Bool("recursive"), c.Bool("human"), c.Bool("hidden"))
 			if err != nil {
 				return err
 			}
