@@ -8,13 +8,13 @@ import (
 )
 
 func TestGetSizeSimple(t *testing.T) {
-	size, err := code.GetPathSize("data/test.csv", false, false)
+	size, err := code.GetPathSize("data/test.csv", false, false, false)
 	assert.Nil(t, err)
-	assert.Equal(t, 7, size)
+	assert.Equal(t, "7B", size)
 }
 
 func TestGetSizeError(t *testing.T) {
-	_, err := code.GetPathSize("unknown", false, false)
+	_, err := code.GetPathSize("unknown", false, false, false)
 	assert.NotNil(t, err)
 }
 
@@ -27,16 +27,16 @@ func TestFormatSize(t *testing.T) {
 }
 
 func TestHidden(t *testing.T) {
-	size, _ := code.GetPathSize("data", true, false)
-	assert.Equal(t, 15, size)
+	size, _ := code.GetPathSize("data", false, false, true)
+	assert.Equal(t, "15B", size)
 }
 
 func TestRecursive(t *testing.T) {
-	size, _ := code.GetPathSize("data", false, true)
-	assert.Equal(t, 14, size)
+	size, _ := code.GetPathSize("data", true, false, false)
+	assert.Equal(t, "14B", size)
 }
 
 func TestRecursiveAndHidden(t *testing.T) {
-	size, _ := code.GetPathSize("data", true, true)
-	assert.Equal(t, 22, size)
+	size, _ := code.GetPathSize("data", true, false, true)
+	assert.Equal(t, "22B", size)
 }

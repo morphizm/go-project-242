@@ -44,13 +44,12 @@ func main() {
 		},
 		Action: func(ctx context.Context, c *cli.Command) error {
 			file_path := c.Args().Get(0)
-			size, err := code.GetPathSize(file_path, cfg.hidden, cfg.recursive)
+			size, err := code.GetPathSize(file_path, cfg.recursive, cfg.human, cfg.hidden)
 			if err != nil {
 				return err
 			}
-			sizeFmt := code.FormatSize(size, cfg.human)
 
-			str := fmt.Sprintf("%s\t%s", sizeFmt, file_path)
+			str := fmt.Sprintf("%s\t%s", size, file_path)
 			fmt.Println(str)
 
 			return nil

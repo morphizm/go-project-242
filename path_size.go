@@ -48,17 +48,25 @@ func getDirFilesSize(path string, hidden bool, recursive bool) (int, error) {
 	return result, nil
 }
 
-func GetPathSize(path string, hidden bool, recursive bool) (int, error) {
+func GetPathSize(path string, recursive, human, hidden bool) (string, error) {
 	stat, err := os.Stat(path)
 	if err != nil {
-		return 0, err
+		return "", err
 	}
 
 	if stat.IsDir() {
-		return getDirFilesSize(path, hidden, recursive)
+		res, err := getDirFilesSize(path, hidden, recursive)
+		if err != nil {
+			return "", err
+		}
+		return FormatSize(res, human), nil
 	}
 
-	return getFileSize(path)
+	res, err := getFileSize(path)
+	if err != nil {
+		return "", err
+	}
+	return FormatSize(res, human), nil
 }
 
 func FormatSize(size int, human bool) string {
