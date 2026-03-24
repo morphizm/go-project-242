@@ -81,8 +81,8 @@ func FormatSize(size int, human bool) string {
 		res /= 1024
 	}
 
-	if human {
-		return fmt.Sprintf("%.1g%s", res, dimension)
+	if human && dimension != "B" {
+		return fmt.Sprintf("%.1f%s", res, dimension)
 	}
 
 	return fmt.Sprintf("%dB", size)
