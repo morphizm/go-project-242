@@ -24,12 +24,12 @@ func getSize(path string, hidden bool, recursive bool) (int64, error) {
 	var result int64
 	for _, file := range files {
 		isHidden := strings.HasPrefix(file.Name(), ".")
+		if isHidden && !hidden {
+			continue
+		}
 
 		if !file.IsDir() {
 			if info, err := file.Info(); err == nil {
-				if isHidden && !hidden {
-					continue
-				}
 
 				result += info.Size()
 			}
