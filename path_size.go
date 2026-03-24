@@ -16,6 +16,47 @@ func getFileSize(path string) (int, error) {
 	return int(finfo.Size()), nil
 }
 
+// func getSize(path string, hidden bool, recursive bool) (int64, error) {
+// 	stat, err := os.Stat(path)
+// 	if err != nil {
+// 		return 0, err
+// 	}
+
+// 	if !stat.IsDir() {
+// 		return stat.Size(), nil
+// 	}
+
+// 	files, err := os.ReadDir(path)
+// 	if err != nil {
+// 		return 0, err
+// 	}
+// 	var result int64
+// 	for _, file := range files {
+// 		isHidden := strings.HasPrefix(file.Name(), ".")
+
+// 		if !file.IsDir() {
+// 			if info, err := file.Info(); err == nil {
+// 				if isHidden && !hidden {
+// 					continue
+// 				}
+
+// 				result += info.Size()
+// 			}
+// 		}
+
+// 		if file.IsDir() && recursive {
+// 			dirPath := filepath.Join(path, file.Name())
+// 			dirSize, err := getSize(dirPath, hidden, recursive)
+// 			if err != nil {
+// 				return 0, err
+// 			}
+// 			result += dirSize
+// 		}
+// 	}
+
+// 	return result, nil
+// }
+
 func getDirFilesSize(path string, hidden bool, recursive bool) (int, error) {
 	files, err := os.ReadDir(path)
 	if err != nil {
@@ -37,10 +78,7 @@ func getDirFilesSize(path string, hidden bool, recursive bool) (int, error) {
 
 		if file.IsDir() && recursive {
 			dirPath := filepath.Join(path, file.Name())
-			dirSize, err := getDirFilesSize(dirPath, hidden, recursive)
-			if err != nil {
-				return 0, err
-			}
+			dirSize, _ := getDirFilesSize(dirPath, hidden, recursive)
 			result += dirSize
 		}
 	}
