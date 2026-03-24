@@ -1,7 +1,7 @@
 package main
 
 import (
-	path_size "code"
+	"code"
 	"context"
 	"fmt"
 	"log"
@@ -44,11 +44,11 @@ func main() {
 		},
 		Action: func(ctx context.Context, c *cli.Command) error {
 			file_path := c.Args().Get(0)
-			size, err := path_size.GetSize(file_path, cfg.hidden, cfg.recursive)
+			size, err := code.GetSize(file_path, cfg.hidden, cfg.recursive)
 			if err != nil {
 				return err
 			}
-			sizeFmt := path_size.FormatSize(size, cfg.human)
+			sizeFmt := code.FormatSize(size, cfg.human)
 
 			str := fmt.Sprintf("%s\t%s", sizeFmt, file_path)
 			fmt.Println(str)
