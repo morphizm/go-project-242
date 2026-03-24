@@ -5,10 +5,6 @@ import (
 	"os"
 )
 
-func isDir(path string) bool {
-	return false
-}
-
 func getFileSize(path string) (int, error) {
 	finfo, err := os.Lstat(path)
 	if err != nil {
@@ -37,7 +33,8 @@ func getDirFilesSize(path string) (int, error) {
 
 func GetSize(path string) (int, error) {
 	fmt.Println(path)
-	fmt.Println("_________\n")
+	fmt.Println("_________")
+	fmt.Println("")
 
 	stat, err := os.Stat(path)
 	if err != nil {
