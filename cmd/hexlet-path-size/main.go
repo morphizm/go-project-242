@@ -33,7 +33,7 @@ func main() {
 		},
 		Action: func(ctx context.Context, c *cli.Command) error {
 			file_path := c.Args().Get(0)
-			size, err := code.GetPathSize(file_path, c.Bool("recursive"), c.Bool("human"), c.Bool("hidden"))
+			size, err := code.GetPathSize(file_path, c.Bool("recursive"), c.Bool("human"), c.Bool("all"))
 			if err != nil {
 				return err
 			}
